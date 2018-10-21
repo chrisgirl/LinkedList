@@ -1,63 +1,75 @@
-//Time Complexity: O(n)
-
-
 /*
-Given a linked list, print reverse of it using a recursive function.
-For example, if the given linked list is 1->2->3->4, then output should be 4->3->2->1.
-printReverse(head)
-  1. call print reverse for hed->next
-  2. print head->data
-*/
+
+// Java program for reversing the linked list (Iterative method)
+Time Complexity: O(n)
+Initialize three pointers prev as NULL, curr as head and next as NULL.
+Iterate trough the linked list. In loop, do following.
+// Before changing next of current,
+// store next node
+next = curr->next
+// Now change next of current
+// This is where actual reversing happens
+curr->next = prev
+
+// Move prev and curr one step forward
+prev = curr
+curr = next
+ */
 public class ReverseOfLinkedList {
-   Node head;  // head of list 
+   
+// Java program for reversing the linked list 
   
-    /* Linked list Node*/
-    class Node 
-    { 
+  
+    static Node head; 
+  
+    static class Node { 
+  
         int data; 
         Node next; 
-        Node(int d) {data = d; next = null; } 
+  
+        Node(int d) { 
+            data = d; 
+            next = null; 
+        } 
     } 
   
-    /* Function to print reverse of linked list */
-    void printReverse(Node head) 
-    { 
-        if (head == null) return; 
-  
-        // print list of head node 
-        printReverse(head.next); 
-  
-        // After everything else is printed 
-        System.out.print(head.data+" "); 
+    /* Function to reverse the linked list */
+    Node reverse(Node node) { 
+        Node prev = null; 
+        Node current = node; 
+        Node next = null; 
+        while (current != null) { 
+            next = current.next; 
+            current.next = prev; 
+            prev = current; 
+            current = next; 
+        } 
+        node = prev; 
+        return node; 
     } 
   
-    /* Utility Functions */
-  
-    /* Inserts a new Node at front of the list. */
-    public void push(int new_data) 
-    { 
-        /* 1 & 2: Allocate the Node & 
-                  Put in the data*/
-        Node new_node = new Node(new_data); 
-  
-        /* 3. Make next of new Node as head */
-        new_node.next = head; 
-  
-        /* 4. Move the head to point to new Node */
-        head = new_node; 
+    // prints content of double linked list 
+    void printList(Node node) { 
+        while (node != null) { 
+            System.out.print(node.data + " "); 
+            node = node.next; 
+        } 
     } 
   
-    /*Drier function to test the above methods*/
-    public static void main(String args[]) 
-    { 
-        // Let us create linked list 1->2->3->4 
-        ReverseOfLinkedList llist = new ReverseOfLinkedList(); 
-        llist.push(4); 
-        llist.push(3); 
-        llist.push(2); 
-        llist.push(1); 
-  
-        llist.printReverse(llist.head); 
+    public static void main(String[] args) { 
+        ReverseOfLinkedList list = new ReverseOfLinkedList(); 
+        list.head = new Node(85); 
+        list.head.next = new Node(15); 
+        list.head.next.next = new Node(4); 
+        list.head.next.next.next = new Node(20); 
+          
+        System.out.println("Given Linked list"); 
+        list.printList(head); 
+        head = list.reverse(head); 
+        System.out.println(""); 
+        System.out.println("Reversed linked list "); 
+        list.printList(head); 
     } 
-}  
-
+} 
+   
+}
